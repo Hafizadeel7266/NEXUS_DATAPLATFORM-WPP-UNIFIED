@@ -1,3 +1,6 @@
+-- =========================================
+-- BigQuery
+-- =========================================
 DECLARE sql STRING;
 
 SET sql = (
@@ -27,3 +30,31 @@ SET sql = (
 );
 
 EXECUTE IMMEDIATE sql;
+
+
+
+-- =========================================
+-- Snowflake 
+-- =========================================
+SELECT
+    table_schema AS schema_name,
+    table_name
+FROM information_schema.tables
+WHERE UPPER(table_name) IN (
+    'P_NEXUS_AMAZON',
+    'P_NEXUS_DCM',
+    'P_NEXUS_DOUBLEVERIFY',
+    'P_NEXUS_DV360_STANDARD',
+    'P_NEXUS_DV360_YOUTUBE',
+    'P_NEXUS_IAS',
+    'P_NEXUS_MIQ',
+    'P_NEXUS_QUANTCAST',
+    'P_NEXUS_SALESFORCE',
+    'P_NEXUS_SIZMEK',
+    'P_NEXUS_TTD',
+    'P_NEXUS_VIANT',
+    'P_NEXUS_XANDR',
+    'P_NEXUS_YAHOO',
+    'P_NEXUS_ZETA'
+)
+ORDER BY 1,2;
