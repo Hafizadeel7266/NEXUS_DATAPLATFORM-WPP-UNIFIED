@@ -1,3 +1,4 @@
+
 DECLARE sql STRING;
 
 SET sql = (
@@ -26,6 +27,10 @@ SET sql = (
     SELECT 'pds__ias__all', 'p_nexus_api_ias' UNION ALL
     SELECT 'pds__xandr__all', 'p_nexus_api_xandr' UNION ALL
     SELECT 'pds__quantcast__all', 'p_nexus_api_quantcast'
+    UNION ALL
+    SELECT 'pds__miq__all', 'p_nexus_api_miq'
+     UNION ALL
+    SELECT 'pds__salesforce__all', 'p_nexus_api_salesforce'
   )
 );
 
