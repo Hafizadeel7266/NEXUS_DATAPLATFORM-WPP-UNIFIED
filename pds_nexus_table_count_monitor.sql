@@ -1,14 +1,20 @@
-
+DECLARE project_id STRING DEFAULT @@project_id;
 DECLARE sql STRING;
 
 SET sql = (
   SELECT STRING_AGG(
     FORMAT("""
-      SELECT '%s' AS dataset_name, '%s' AS table_name, COUNT(*) AS row_count
-      FROM `%s.%s`
+      SELECT 
+        '%s' AS project_id,
+        '%s' AS dataset_name, 
+        '%s' AS table_name, 
+        COUNT(*) AS row_count
+      FROM `%s.%s.%s`
     """,
+      project_id,
       dataset_name,
       table_name,
+      project_id,
       dataset_name,
       table_name
     )
@@ -26,12 +32,12 @@ SET sql = (
     SELECT 'pds__amazon__all', 'p_nexus_api_amazon' UNION ALL
     SELECT 'pds__ias__all', 'p_nexus_api_ias' UNION ALL
     SELECT 'pds__xandr__all', 'p_nexus_api_xandr' UNION ALL
-    SELECT 'pds__quantcast__all', 'p_nexus_api_quantcast'
-    UNION ALL
-    SELECT 'pds__miq__all', 'p_nexus_api_miq'
-     UNION ALL
+    SELECT 'pds__quantcast__all', 'p_nexus_api_quantcast' UNION ALL
+    SELECT 'pds__miq__all', 'p_nexus_api_miq' UNION ALL
     SELECT 'pds__salesforce__all', 'p_nexus_api_salesforce'
   )
 );
+
+SET sql = CONCAT(sql, " ORDER BY 1, 2, 3");
 
 EXECUTE IMMEDIATE sql;
